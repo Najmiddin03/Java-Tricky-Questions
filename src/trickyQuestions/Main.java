@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public class Main {
 
 	public static void main(String[] args) {
-		f9();
+		f10(null);
 	}
 
 	static void f1() {
@@ -111,5 +111,13 @@ public class Main {
 		System.out.println(Double.MIN_VALUE);
 		System.out.println(Math.max(Double.MIN_VALUE, 0.0d));
 		System.out.println(Math.max(Double.MIN_VALUE, Double.NEGATIVE_INFINITY));
+	}
+
+	static void f10(Object o) {
+		System.out.println("Object argument");
+	}
+
+	static void f10(String s) {
+		System.out.println("String argument");
 	}
 }
