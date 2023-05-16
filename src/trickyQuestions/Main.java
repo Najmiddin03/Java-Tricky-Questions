@@ -1,13 +1,21 @@
 package trickyQuestions;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 public class Main {
 
 	public static void main(String[] args) {
-		f10(null);
+		int[] arr = { 1, 2, 4, 5, 6, 7, 8, 9 };
+		System.out.println(f15(arr, 9));
+
 	}
 
 	static void f1() {
@@ -119,5 +127,58 @@ public class Main {
 
 	static void f10(String s) {
 		System.out.println("String argument");
+	}
+
+	static void f11(int[] arr) {
+		// find duplicates
+		Set<Integer> set = new HashSet<>();
+		for (int x : arr) {
+			if (!set.add(x)) {
+				System.out.println(x);
+			}
+		}
+	}
+
+	static void f12(String str) {
+		if (str == null) {
+			return;
+		}
+		Map<Character, Integer> m = new HashMap<>();
+		for (int i = 0; i < str.length(); i++) {
+			if (m.containsKey(str.charAt(i))) {
+				m.put(str.charAt(i), m.get(str.charAt(i)) + 1);
+			} else {
+				m.put(str.charAt(i), 1);
+			}
+		}
+		Set<Map.Entry<Character, Integer>> entrySet = m.entrySet();
+		for (Map.Entry<Character, Integer> es : entrySet) {
+			if (es.getValue() > 1) {
+				System.out.println(es);
+			}
+		}
+	}
+
+	static void f13() {
+		// Execute comments \u000dSystem.out.println("This line is written in comment section");
+	}
+
+	static void f14() {
+		// Compare site URL and IP address
+		try {
+			System.out.println(new URL("https://google.com").equals(new URL("https://172.217.18.14")));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	static int f15(int[] arr, int count) {
+		int expSum = count * (count + 1) / 2;
+		int actualSum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			actualSum += arr[i];
+		}
+		return expSum - actualSum;
 	}
 }
