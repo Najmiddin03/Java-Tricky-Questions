@@ -2,19 +2,26 @@ package trickyQuestions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
+import java.util.function.IntPredicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import com.google.common.math.DoubleMath;
+import com.google.common.primitives.Ints;
 
 public class Main {
 
 	public static void main(String[] args) {
-		int[] arr = { 1, 2, 4, 5, 6, 7, 8, 9 };
-		System.out.println(f15(arr, 9));
+		f23();
 
 	}
 
@@ -46,6 +53,7 @@ public class Main {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	static void f3() {
 		// Print 1...100 without using loop and recursion
 		// Using arrays fill
@@ -160,7 +168,8 @@ public class Main {
 	}
 
 	static void f13() {
-		// Execute comments \u000dSystem.out.println("This line is written in comment section");
+		// Execute comments \u000d
+		System.out.println("This line is written in comment section");
 	}
 
 	static void f14() {
@@ -168,7 +177,6 @@ public class Main {
 		try {
 			System.out.println(new URL("https://google.com").equals(new URL("https://172.217.18.14")));
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -180,5 +188,97 @@ public class Main {
 			actualSum += arr[i];
 		}
 		return expSum - actualSum;
+	}
+
+	static void f16() {
+		// Find length of String without length() method
+		String str = "Hello";
+		System.out.println(str.toCharArray().length);
+
+		System.out.println(str.lastIndexOf(""));
+
+		Matcher m = Pattern.compile("$").matcher(str);
+		m.find();
+		System.out.println(m.end());
+
+		System.out.println(str.split("").length);
+	}
+
+	static void f17() {
+		// StringJoiner
+		StringJoiner sj = new StringJoiner("|", "[", "]");
+		sj.add("Java").add("Python").add("C++");
+		System.out.println(sj);
+	}
+
+	static int f18(String str, char ch) {
+		// Finding occurrences of the character in String using Streams
+		return (int) str.chars().filter(e -> (char) e == ch).count();
+	}
+
+	static void f19(String str) {
+		// Count vowels
+		IntPredicate vowel = new IntPredicate() {
+
+			@Override
+			public boolean test(int c) {
+				return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I'
+						|| c == 'O' || c == 'U';
+			}
+		};
+		System.out.println(str.chars().filter(vowel).count());
+	}
+
+	static void f20(int arr1[], int[] arr2) {
+		// Joining two arrays
+		// Using streams
+		IntStream s1 = Arrays.stream(arr1);
+		IntStream s2 = Arrays.stream(arr2);
+		int[] arr = IntStream.concat(s1, s2).toArray();
+		System.out.println(Arrays.toString(arr));
+		// Using Google Guava
+		arr = Ints.concat(arr1, arr2);
+		System.out.println(Arrays.toString(arr));
+	}
+
+	@SuppressWarnings("deprecation")
+	static void f21(int[] arr) {
+		// Calculate array average
+		// Using streams
+		double av = Arrays.stream(arr).average().getAsDouble();
+		System.out.println(av);
+		// Using Google guava
+		double av2 = DoubleMath.mean(arr);
+		System.out.println(av2);
+
+	}
+
+	static void f22(String str, String sub) {
+		// Checking substring
+		System.out.println(str.matches("(.*)" + sub + "(.*)"));
+		System.out.println(str.contains(sub));
+		System.out.println(str.indexOf(sub) != -1);
+	}
+
+	static void f23() {
+		// Compare marks of the Students
+		Student s1 = new Student("Noob", 56);
+		Student s2 = new Student("Boba", 95);
+		Student s3 = new Student("Scar", 40);
+		Student s4 = new Student("Dell", 95);
+		Student s5 = new Student("Melo", 85);
+		List<Student> l = new ArrayList<>();
+		l.add(s5);
+		l.add(s4);
+		l.add(s3);
+		l.add(s2);
+		l.add(s1);
+		// Print where mark>80
+		l.stream().filter(e -> e.getMark() > 80).forEach(e -> System.out.println(e.getName() + ": " + e.getMark()));
+		// Who has the highest mark
+		int hmark = l.stream().map(e -> e.getMark()).max(Integer::compare).get();
+		System.out.println("Highest mark: " + hmark);
+		System.out.println("Students with highest mark:");
+		l.stream().filter(e -> e.getMark() == hmark).forEach(e -> System.out.println(e.getName()));
 	}
 }
