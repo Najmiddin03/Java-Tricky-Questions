@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,7 +25,7 @@ import com.google.common.primitives.Ints;
 public class Main {
 
 	public static void main(String[] args) {
-		f25();
+		f26("Najmiddin");
 
 	}
 
@@ -315,5 +316,18 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	static void f26(String str) {
+		// Count characters in String
+		Map<Character, Integer> m = new LinkedHashMap<>();
+		for (int i = 0; i < str.length(); i++) {
+			if (m.containsKey(str.charAt(i))) {
+				m.put(str.charAt(i), m.get(str.charAt(i)) + 1);
+			} else {
+				m.put(str.charAt(i), 1);
+			}
+		}
+		System.out.println(m);
 	}
 }
