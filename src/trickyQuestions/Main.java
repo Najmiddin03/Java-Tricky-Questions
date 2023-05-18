@@ -1,5 +1,7 @@
 package trickyQuestions;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,13 +17,14 @@ import java.util.function.IntPredicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import javax.imageio.ImageIO;
 import com.google.common.math.DoubleMath;
 import com.google.common.primitives.Ints;
 
 public class Main {
 
 	public static void main(String[] args) {
-		f23();
+		f25();
 
 	}
 
@@ -280,5 +283,37 @@ public class Main {
 		System.out.println("Highest mark: " + hmark);
 		System.out.println("Students with highest mark:");
 		l.stream().filter(e -> e.getMark() == hmark).forEach(e -> System.out.println(e.getName()));
+	}
+
+	static void f24(int[] arr) {
+		// Shift all zeros to right size of the array
+		if (arr.length == 1) {
+			return;
+		}
+
+		int count = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] != 0) {
+				if (count != i) {
+					arr[count] = arr[i];
+					arr[i] = 0;
+				}
+				count++;
+			}
+		}
+	}
+
+	static void f25() {
+		// Image format conversions
+		try {
+			URL url = new URL("https://avatars.githubusercontent.com/u/104941296?v=4");
+			BufferedImage image = ImageIO.read(url);
+			ImageIO.write(image, "jpg", new File("Images/naruto.jpg"));
+			ImageIO.write(image, "png", new File("Images/naruto.png"));
+			ImageIO.write(image, "bmp", new File("Images/naruto.bmp"));
+			ImageIO.write(image, "gif", new File("Images/naruto.gif"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
