@@ -2,6 +2,7 @@ package trickyQuestions;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,8 +13,10 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntPredicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +28,7 @@ import com.google.common.primitives.Ints;
 public class Main {
 
 	public static void main(String[] args) {
-		f26("Najmiddin");
+		f28();
 
 	}
 
@@ -329,5 +332,33 @@ public class Main {
 			}
 		}
 		System.out.println(m);
+	}
+
+	static void f27() {
+		// Launching external applications
+		Runtime runTime = Runtime.getRuntime();
+		try {
+			Process pr = runTime.exec("notepad.exe notepad.txt");
+			Thread.sleep(4000);
+			pr.destroy();
+			String s[] = { "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "google.com" };
+			runTime.exec(s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	static void f28() {
+		// Generating random numbers
+		// Random class
+		Random random = new Random();
+		System.out.println(random.nextInt());
+		System.out.println(random.nextInt(20));// 0 to 19
+		// Math.random()
+		System.out.println(Math.random());
+		System.out.println((int) (Math.random() * 20));// 0 to 20
+		// ThreadLocalRandom
+		System.out.println(ThreadLocalRandom.current().nextInt());
+		System.out.println(ThreadLocalRandom.current().nextInt(10, 13));// 10 to 12
 	}
 }
