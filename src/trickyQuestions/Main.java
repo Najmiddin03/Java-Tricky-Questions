@@ -1,13 +1,15 @@
 package trickyQuestions;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -28,7 +30,7 @@ import com.google.common.primitives.Ints;
 public class Main {
 
 	public static void main(String[] args) {
-		f28();
+		f29();
 
 	}
 
@@ -360,5 +362,30 @@ public class Main {
 		// ThreadLocalRandom
 		System.out.println(ThreadLocalRandom.current().nextInt());
 		System.out.println(ThreadLocalRandom.current().nextInt(10, 13));// 10 to 12
+	}
+
+	static void f29() {
+		// Getting word count in text file
+		Map<String, Integer> m = new HashMap<>();
+		try (BufferedReader reader = new BufferedReader(new FileReader("text.txt"))) {
+			String currentLine = reader.readLine();
+			while (currentLine != null) {
+				String words[] = currentLine.toLowerCase().split(" ");
+				for (String word : words) {
+					if (m.containsKey(word)) {
+						m.put(word, m.get(word) + 1);
+					} else {
+						m.put(word, 1);
+					}
+				}
+				currentLine = reader.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		m.forEach((k, v) -> System.out.println(k + ": " + v));
+		System.out.println("Most occured words:");
+		m.entrySet().stream().filter(e -> e.getValue() == Collections.max(m.values()))
+				.forEach(e -> System.out.println(e.getKey() + ": " + e.getValue()));
 	}
 }
