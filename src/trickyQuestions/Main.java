@@ -29,6 +29,11 @@ import com.google.common.primitives.Ints;
 
 public class Main {
 
+	static {
+		//Printing hello world without main90 method
+		System.out.println("Hello world");
+	}
+	
 	public static void main(String[] args) {
 		int m1[][] = { { 1, 2, 3 }, { 4, 5, 6 } };
 		int m2[][] = { { 10, 11 }, { 20, 21 }, { 30, 31 } };
