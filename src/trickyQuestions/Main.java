@@ -30,8 +30,20 @@ import com.google.common.primitives.Ints;
 public class Main {
 
 	public static void main(String[] args) {
-		f29();
+		int m1[][] = { { 1, 2, 3 }, { 4, 5, 6 } };
+		int m2[][] = { { 10, 11 }, { 20, 21 }, { 30, 31 } };
 
+		System.out.println("Matrix multiplication");
+		int m[][] = f38(m1, m2);
+		for (int arr[] : m) {
+			System.out.println(Arrays.toString(arr));
+		}
+
+		System.out.println("Matrix transpose");
+		m = f39(m1);
+		for (int arr[] : m) {
+			System.out.println(Arrays.toString(arr));
+		}
 	}
 
 	static void f1() {
@@ -387,5 +399,166 @@ public class Main {
 		System.out.println("Most occured words:");
 		m.entrySet().stream().filter(e -> e.getValue() == Collections.max(m.values()))
 				.forEach(e -> System.out.println(e.getKey() + ": " + e.getValue()));
+	}
+
+	static void f30() {
+		// Count total chars, words and lines in a given file
+		int chars = 0;
+		int words = 0;
+		int lines = 0;
+
+		try (BufferedReader br = new BufferedReader(new FileReader("text.txt"))) {
+			String currLine = br.readLine();
+			while (currLine != null) {
+				lines++;
+				String[] arr = currLine.split(" ");
+				words += arr.length;
+				for (String w : arr) {
+					chars += w.length();
+				}
+				currLine = br.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("Characters: " + chars);
+		System.out.println("Words: " + words);
+		System.out.println("Lines: " + lines);
+	}
+
+	static void f31() {
+		// Set read/write/executable permissions for file
+		File file = new File("src\\trickyQuestions\\Student.java");
+		file.setExecutable(false);
+		file.setReadable(false);
+		file.setWritable(false);
+		System.out.println("Done");
+	}
+
+	static boolean f32(String s1, String s2) {
+		// Check if two Strings are Anagram
+		if (s1.length() != s2.length()) {
+			return false;
+		}
+		char[] c1 = s1.toLowerCase().toCharArray();
+		char[] c2 = s2.toLowerCase().toCharArray();
+		Arrays.sort(c1);
+		Arrays.sort(c2);
+		return Arrays.equals(c1, c2);
+	}
+
+	static boolean f33(int n) {
+		// Check if the given number is Armstrong number
+		if (n < 0) {
+			return false;
+		}
+		int m = n;
+		int sum = 0;
+		int pow = Integer.toString(n).length();
+		while (m > 0) {
+			sum += Math.pow(m % 10, pow);
+			m = m / 10;
+		}
+		return sum == n;
+	}
+
+	static void f34(int arr[]) {
+		// Find all leader elements
+		if (arr.length == 0) {
+			System.out.println("Empty array");
+			return;
+		}
+		List<Integer> l = new ArrayList<>();
+		int max = arr[arr.length - 1];
+		l.add(max);
+		for (int i = arr.length - 2; i >= 0; i--) {
+			if (arr[i] > max) {
+				l.add(arr[i]);
+				max = arr[i];
+			}
+		}
+		System.out.println(l);
+	}
+
+	static int f35(String str) {
+		// String to int without in-built functions
+		int num = 0;
+		for (char ch : str.toCharArray()) {
+			num = num * 10 + ((int) ch - (int) '0');
+		}
+		return num;
+	}
+
+	static void f36(String str) {
+		// Find percentage of different characters in String
+		int upper = 0;
+		int lower = 0;
+		int num = 0;
+		int spec = 0;
+		for (char ch : str.toCharArray()) {
+			if (Character.isUpperCase(ch)) {
+				upper++;
+			} else if (Character.isLowerCase(ch)) {
+				lower++;
+			} else if (Character.isDigit(ch)) {
+				num++;
+			} else {
+				spec++;
+			}
+		}
+		System.out.println(upper * 100 / str.length() + " %");
+		System.out.println(lower * 100 / str.length() + " %");
+		System.out.println(num * 100 / str.length() + " %");
+		System.out.println(spec * 100 / str.length() + " %");
+	}
+
+	static int[][] f37(int[][] m1, int[][] m2) {
+		// Matrix addition
+		if (m1.length != m2.length || m1[0].length != m2[0].length) {
+			throw new RuntimeException("Matrixes cannot be added");
+		}
+		int[][] ans = new int[m1.length][m1[0].length];
+		for (int r = 0; r < m1.length; r++) {
+			for (int c = 0; c < m1[r].length; c++) {
+				ans[r][c] = m1[r][c] + m2[r][c];
+			}
+		}
+		return ans;
+	}
+
+	static int[][] f38(int[][] m1, int[][] m2) {
+		// Matrix multiplication
+		if (m1[0].length != m2.length) {
+			throw new RuntimeException("Matrixes cannot be multiplied");
+		}
+		int[][] ans = new int[m1.length][m2[0].length];
+		for (int r = 0; r < ans.length; r++) {
+			for (int c = 0; c < ans[0].length; c++) {
+				ans[r][c] = 0;
+				for (int i = 0; i < m1[0].length; i++) {
+					ans[r][c] += m1[r][i] * m2[i][c];
+				}
+			}
+		}
+		return ans;
+	}
+
+	static int[][] f39(int[][] m) {
+		// Matrix transpose
+		int[][] ans = new int[m[0].length][m.length];
+		for (int r = 0; r < ans.length; r++) {
+			for (int c = 0; c < ans[0].length; c++) {
+				ans[r][c] = m[c][r];
+			}
+		}
+		return ans;
+	}
+
+	static int i = f40();
+
+	static int f40() {
+		// Print "Hello world" without using main() method and static block
+		System.out.println("Hello world");
+		return 1;
 	}
 }
